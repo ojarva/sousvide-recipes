@@ -5,11 +5,11 @@ This is a simple recipe management tool for my sous vide cooking built
 on top of jquery-mobile and Django. As sous vide requires quite a bit 
 experimenting with parameters (time and temperature), and I wanted to 
 log my tries and comments, off-the-shelf software didn't quite make it. 
-My installation is available [http://olli.jarva.fi/recipes/](here).
+My installation is available [here](http://olli.jarva.fi/recipes/).
 
-I also translated [http://www.douglasbaldwin.com/sous-vide.html](Douglas 
-Baldwin's excellent sous vide guide) to Finnish, available at 
-[http://www.sousvide.fi/](sousvide.fi).
+I also translated [Douglas Baldwin's excellent sous vide 
+guide](http://www.douglasbaldwin.com/sous-vide.html) to Finnish, 
+available at [sousvide.fi](http://www.sousvide.fi/).
 
 Installation
 ------------
