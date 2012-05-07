@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div data-role="page">
+
+<div data-role="header">
+    <h1>Sous Vide -reseptit {{letter}}</h1>
+    {% include "recipes/snippets/right_top.html" %}
+</div>
+
+<div data-role="content">
+<ul data-role="listview" data-inset="true">
+    {% for recipegroup in recipes %}
+        <li><a href="/recipe/{{ recipegroup.main_ingredient.id }}">{{ recipegroup.main_ingredient }}</a></li>
+    {% empty %}
+        <li>Ei reseptejä joiden ensimmäinen kirjain on {{letter}}</li>
+    {% endfor %}
+</ul>
+</div>
+
+<div data-role="footer">
+<h4>Page Footer</h4>
+</div>
+
+</div>
+{% endblock %}

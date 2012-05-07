@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div data-role="page" id="add_new">
+
+<div data-role="header">
+    <h1>Lisää uusi resepti</h1>
+    {% include "recipes/snippets/right_top.html" %}
+</div>
+
+<div data-role="content">
+	<a data-role="button" data-icon="back" href="{% url recipes_list %}">Takaisin</a>
+	<form data-ajax="false" action="{% url recipegroup_add %}" method="post" class="ui-corner-all">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit" data-theme="b" name="submit" data-icon="plus" value="submit-value">Lisää</button>
+	</form>
+</div>
+
+{% include "recipes/snippets/footer.html" %}
+{% endblock %}

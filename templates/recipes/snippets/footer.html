@@ -1,0 +1,7 @@
+<div data-role="footer" class="ui-bar">
+{% if user.is_authenticated %}
+<a data-inline="true" href="{% url logout %}" data-role="button" data-icon="minus">Kirjaudu ulos</a>
+{% else %}
+<a data-inline="true" href="{% url login %}?next=/recipes" data-role="button" data-icon="check">Kirjaudu</a>
+{% endif %}
+</div>

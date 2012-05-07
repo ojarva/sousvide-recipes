@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div data-role="page" id="add_new">
+
+<div data-role="header">
+    <h1>Sous vide -resepti: {{ recipegroup.main_ingredient }}</h1>
+    {% include "recipes/snippets/right_top.html" %}
+</div>
+
+<div data-role="content">
+	<a data-role="button" data-icon="back" href="{% url recipe_info recipegroup.id %}">Takaisin</a>
+	<h3>Merkint&auml;</h3>
+
+
+</div>
+
+{% include "recipes/snippets/footer.html" %}
+{% endblock %}

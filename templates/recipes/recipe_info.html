@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load url_no_ajax %}
+
+{% block content %}
+<div data-role="page" id="list-{{ recipegroup.id }}">
+
+	<div data-role="header">
+	    <h1>Resepti: {{ recipegroup.main_ingredient }}</h1>
+	    {% include "recipes/snippets/right_top.html" %}
+	</div>
+
+	<div data-role="content">
+
+		<ul data-role="listview" data-inset="true">
+{% if user.is_authenticated %}
+			<li>
+				<div data-role="controlgroup" data-type="horizontal">
+					<a data-icon="plus" data-role="button" href="{% url recipe_add_making recipegroup.id %}">Lisää</a>
+					<a data-role="button" href="{% url recipe_description recipegroup.id %}" data-icon="gear">Muokkaa kuvausta</a>
+				</div>
+			</li>
+
+{% endif %}
+			<li>
+				<h3>Kuvaus</h3>
+				<p>{{ recipegroup.description|safe|urlizetrunc:25|url_no_ajax }}</p>
+			</li>
+
+			{% for making in makings %}
+			<li>{% if user.is_authenticated %}<a href="{% url making_edit making.id %}">{% endif %}
+				<h3>{{ making.time }}min @ {{ making.temperature }}&deg;C</h3>
+				<p><strong>{{ making.started }}</strong></p>
+				<p>{{ making.comments }}</p>
+				<p class="ui-li-aside"><strong>{% if making.in_progress %}kesken{% else %}{{ making.rating }}{% endif %}</strong></p>
+				{% if user.is_authenticated %}</a>{% endif %}</li>
+			{% empty %}
+				<li>Ei yhtään kirjausta.</li>
+			{% endfor %}
+		</ul>
+	</div>
+
+
+	{% include "recipes/snippets/footer.html" %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,6 @@
+syntax:glob
+.hg
+data.db
+*.pyc
+.hgignore
+static/admin

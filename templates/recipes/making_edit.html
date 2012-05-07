@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div data-role="page" id="add_new">
+
+<div data-role="header">
+    <h1>Resepti: {{ recipegroup.main_ingredient }} - muokkaa tekokertaa</h1>
+    {% include "recipes/snippets/right_top.html" %}
+</div>
+
+<div data-role="content">
+	<a data-role="button" data-icon="back" href="{% url recipe_info recipegroup.id %}">Takaisin</a>
+	<h3>Muokkaa merkintää</h3>
+	<form data-ajax="false" action="{% url making_edit making.id %}" method="post" class="ui-corner-all">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit" data-theme="b" name="submit" data-icon="plus" value="submit-value">Muokkaa</button>
+	</form>
+	<form data-ajax="false" action="{% url making_delete making.id %}" method="post" class="ui-corner-all">
+		{% csrf_token %}
+		<button type="submit" name="submit" data-icon="delete" value="submit-value">Poista</button>
+	</form>
+</div>
+
+{% include "recipes/snippets/footer.html" %}
+{% endblock %}

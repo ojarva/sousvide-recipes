@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div data-role="page">
+
+<div data-role="header">
+    <h1>Sous vide -reseptit</h1>
+    {% include "recipes/snippets/right_top.html" %}
+</div>
+
+<div data-role="content">
+
+{% if user.is_authenticated %}
+<p><a href="{% url recipegroup_add %}" data-role="button" data-icon="plus">Lis&auml;&auml; uusi</a></p>
+{% endif %}
+
+{% if in_progress_makings %}
+<ul data-role="listview" data-inset="true" data-split-theme="d" data-split-icon="star">
+ <li data-role="list-divider">Keskener&auml;iset</li>
+ {% for item in in_progress_makings %}
+  {% if user.is_authenticated %}
+   <li><a href="{% url making_edit item.id %}">{{ item.group }} (valmis: {{ item.until_ready }})</a>
+    <a data-ajax="false" href="http://olli.jarva.fi/countdown.html?start={{ item.get_start }}&end={{ item.get_end }}">laskuri</a>
+   </li>
+  {% else %}
+   <li><a href="#">{{ item.group }} (valmis: {{ item.until_ready }})</a>
+    <a data-ajax="false" href="http://olli.jarva.fi/countdown.html?start={{ item.get_start }}&end={{ item.get_end }}">laskuri</a>
+  </li>
+  {% endif %}
+ {% endfor %}
+</ul>
+
+{% endif %}
+
+<h2>Reseptit</h2>
+<ul data-role="listview" data-filter="true" data-filter-placeholder="Etsi reseptej&auml;" data-inset="true">
+{% regroup recipes by first_letter as letter_list %}
+    {% for letter in letter_list %}
+       <li data-role="list-divider">{{ letter.grouper }}</li>
+       {% for recipegroup in letter.list %}
+          <li><a href="{% url recipe_info recipegroup.main_ingredient.id %}">{{ recipegroup.main_ingredient }}</a> <span class="ui-li-count">{{ recipegroup.makingscount }}</span></li>
+       {% empty %}
+          <li>Ei reseptej&auml;</li>
+       {% endfor %}
+    {% endfor %}
+</ul>
+</div>
+
+<div data-theme="b" data-content-theme="b" data-role="content">Yhteens&auml; {{ ingredientcount }} raaka-ainetta ja {{ makingcount }} valmistuskertaa. Kypsennetty {{ hourcount }} tuntia, keskim&auml;&auml;rin {{ houravg }}h.</div>
+
+{% include "recipes/snippets/footer.html" %}
+
+</div>
+{% endblock %}
